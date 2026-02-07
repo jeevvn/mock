@@ -1,46 +1,62 @@
-🚑 TRIAGE-AI
-Trust-Weighted Risk Interpretation & Escalation
+# 🚑 **TRIAGE-AI**
 
-TRIAGE-AI is a safety-first medical decision-support system that helps answer one critical question:
+### *Trust-Weighted Risk Interpretation & Escalation*
 
-“How urgently should this medical situation be reviewed?”
+---
 
-Instead of diagnosing or prescribing, TRIAGE-AI focuses on triage and escalation — deciding when attention is needed, not what the condition is.
+### ❓ What problem does TRIAGE-AI solve?
 
-🧠 Why TRIAGE-AI?
+**TRIAGE-AI** is a **safety-first medical decision-support system** built to answer one focused question:
 
-Medical data is messy:
+> **“How urgently should this medical situation be reviewed?”**
 
-lab values without context
+Instead of diagnosing diseases or prescribing treatments, TRIAGE-AI focuses purely on **triage and escalation** — deciding **when** attention is needed, not **what** the condition is.
 
-medications with hidden interactions
+---
 
-vague or overlapping symptoms
+## 🧠 Why TRIAGE-AI?
 
-This often leads to:
+Medical data is often **fragmented and confusing**:
 
-🚨 unnecessary panic
+* 📊 Lab values without context
+* 💊 Medications with hidden interactions
+* 🗣️ Vague or overlapping symptoms
 
-😴 dangerous delays
+This commonly results in:
 
-TRIAGE-AI solves this by producing one clear, explainable escalation decision:
+* 🚨 **Unnecessary panic** and alert fatigue
+* 😴 **Dangerous delays** in identifying early risk
 
-LOW → Monitor
+---
 
-MEDIUM → Medical review advised
+## 🎯 Our Solution
 
-HIGH → Seek urgent medical attention
+TRIAGE-AI transforms scattered medical inputs into **one clear, explainable escalation decision**:
 
-✨ What Makes This Project Special
+| Escalation Level | Meaning                       |
+| ---------------- | ----------------------------- |
+| 🟢 **LOW**       | Monitor                       |
+| 🟡 **MEDIUM**    | Medical review advised        |
+| 🔴 **HIGH**      | Seek urgent medical attention |
 
-✅ Multi-agent reasoning (different risk perspectives)
-✅ Adaptive trust weighting (context-aware, not static)
-✅ Deterministic & explainable (no black box decisions)
-✅ Safety-first design (no diagnosis, no treatment advice)
+This keeps decisions **clear, calm, and actionable**.
 
-This is decision support, not decision replacement.
+---
 
-🔄 System Flow (High Level)
+## ✨ What Makes TRIAGE-AI Special
+
+✅ **Multi-agent reasoning** — multiple risk perspectives
+✅ **Adaptive trust weighting** — context-aware, not static
+✅ **Deterministic & explainable** — no black-box decisions
+✅ **Safety-first design** — no diagnosis, no treatment advice
+
+> ⚠️ This is **decision support**, not decision replacement.
+
+---
+
+## 🔄 System Flow (High Level)
+
+```
 User Input
    ↓
 Medical Evidence Agents (facts only)
@@ -51,105 +67,113 @@ Meta Agent (who to trust more?)
    ↓
 Arbitration (one escalation decision)
    ↓
-Explainability (plain English output)
+Explainability (plain-English output)
+```
 
+Each stage has **one responsibility**, making the system easy to:
 
-Each stage has one responsibility, making the system easy to explain, debug, and trust.
+* explain
+* debug
+* trust
 
-🧩 Architecture Overview
-Level 0 – Input
+---
 
-Age, sex
+## 🧩 Architecture Overview
 
-Current medications
+### 🔹 Level 0 — Input
 
-Selected lab values
+Collected information:
 
-Patient-reported symptoms
-➡️ Normalized into JSON (no reasoning yet)
+* Age, sex
+* Current medications
+* Selected lab values
+* Patient-reported symptoms
 
-Level 1 – Medical Evidence Agents
+➡️ Normalized into structured JSON
+➡️ **No reasoning happens here**
 
-Objective signal extraction:
+---
 
-Lab Analysis Agent
+### 🔹 Level 1 — Medical Evidence Agents
 
-Medication Interaction Agent
+Objective signal extraction only:
 
-Symptom Correlation Agent
+* 🧪 **Lab Analysis Agent**
+* 💊 **Medication Interaction Agent**
+* 🩺 **Symptom Correlation Agent**
 
-❗ These agents do not communicate and do not interpret.
+❗ These agents **do not communicate**
+❗ They **do not interpret or judge**
 
-Level 2 – Perspective Agents
+---
 
-Three independent viewpoints:
+### 🔹 Level 2 — Perspective Agents
 
-Optimistic – assumes best reasonable case
+Independent risk viewpoints:
 
-Analytical – balances evidence & uncertainty
-
-Pessimistic – prioritizes early risk detection
+* 😊 **Optimistic** — assumes best reasonable case
+* ⚖️ **Analytical** — balances evidence & uncertainty
+* 🚨 **Pessimistic** — prioritizes early risk detection
 
 Each outputs:
 
-concern level (low / medium / high)
+* concern level *(low / medium / high)*
+* confidence score
+* rationale
 
-confidence score
+---
 
-rationale
+### 🔹 Level 3 — Meta Agent
 
-Level 3 – Meta Agent
+Acts as a **moderator**, not a doctor.
 
-Acts as a moderator, not a doctor.
+* Observes evidence severity
+* Detects agreement vs disagreement
+* Adjusts how much each perspective is trusted
 
-Observes evidence severity
+➡️ Output: **adaptive trust weights**
 
-Detects agreement vs disagreement
+---
 
-Adjusts how much each perspective is trusted
+### 🔹 Level 4 — Arbitration
 
-Output: adaptive trust weights
+The **only decision-maker**.
 
-Level 4 – Arbitration
+* Converts concern → numeric scores
+* Scales by confidence & trust
+* Aggregates into one risk score
+* Maps score → **LOW / MEDIUM / HIGH**
 
-The only decision-maker.
+⚠️ Includes **hard safety overrides** for critical lab values
 
-Converts concern → numeric score
+---
 
-Scales by confidence & trust
+### 🔹 Level 5 — Explainability
 
-Aggregates into one risk score
+Produces:
 
-Maps score → LOW / MEDIUM / HIGH
+* 🗣️ Clear, human-readable reasoning
+* 🎯 Action-oriented recommendation
+* 🛡️ Mandatory safety disclaimer
 
-Also includes hard safety overrides for critical lab values.
+---
 
-Level 5 – Explainability
+## 🛡️ Safety by Design
 
-Outputs:
+* No diagnosis or treatment advice
+* Deterministic decision logic
+* Critical-value overrides (e.g., extreme labs)
+* Input sanity checks
+* LLMs (if used) restricted to interpretation layers only
 
-clear, human-readable reasoning
+---
 
-action-oriented recommendation
+## 🗂️ Project Structure
 
-safety disclaimer
-
-🛡️ Safety by Design
-
-No diagnosis or treatment advice
-
-Deterministic decision logic
-
-Critical-value overrides (e.g., extreme labs)
-
-Input sanity checks
-
-LLMs (if used) restricted to interpretation only
-
-🗂️ Project Structure
+```
 TRIAGE-AI/
 │
-├── app.py                  # Streamlit app (orchestration only)
+├── app.py                  # Streamlit orchestration layer
 ├── explainability.py
 │
 ├── evidence/               # Level 1
@@ -161,39 +185,60 @@ TRIAGE-AI/
 │   └── run_meta_pipeline.py
 │
 └── README.md
+```
 
-▶️ How to Run (Demo-Ready)
-1️⃣ Install dependencies
+---
+
+## ▶️ How to Run (Demo-Ready)
+
+### 1️⃣ Install dependencies
+
+```bash
 pip install streamlit
+```
 
-2️⃣ Run logic validation (Levels 3–5)
+### 2️⃣ Validate core logic (Levels 3–5)
+
+```bash
 python tests/run_meta_pipeline.py
+```
 
-3️⃣ Launch the app
+### 3️⃣ Launch the application
+
+```bash
 streamlit run app.py
+```
 
-🧪 Sample Output
+---
+
+## 🧪 Sample Output
+
+```
 Escalation Level: MEDIUM
 Explanation: Some information is outside the normal range, but does not suggest an emergency.
 Recommended Action: Medical review advised.
+```
 
-🚀 Use Cases
+---
 
-Patient-facing triage assistance
+## 🚀 Use Cases
 
-Clinical prioritization support
+* 🧑‍⚕️ Patient-facing triage assistance
+* 🏥 Clinical prioritization support
+* 💊 Medication interaction awareness
+* 📡 Remote health monitoring
+* 🧪 Safe medical AI demonstrations
 
-Medication interaction awareness
+---
 
-Remote health monitoring
+## 🏁 One-Line Pitch (Hackathon Ready)
 
-Safe medical AI demos
+> **TRIAGE-AI is a trust-weighted, multi-agent medical escalation system that safely determines urgency without diagnosing or treating.**
 
-🏁 One-Line Pitch (Hackathon Ready)
+---
 
-TRIAGE-AI is a trust-weighted, multi-agent medical escalation system that safely determines urgency without diagnosing or treating.
+## ⚠️ Disclaimer
 
-⚠️ Disclaimer
+TRIAGE-AI does **not** provide medical advice, diagnosis, or treatment recommendations.
+It is intended solely to support **escalation and prioritization decisions**.
 
-TRIAGE-AI does not provide medical advice, diagnosis, or treatment recommendations.
-It is intended solely to support escalation and prioritization decisions.
