@@ -1,45 +1,33 @@
-from input_layer import build_patient_input
 import streamlit as st
-from input_layer import build_patient_input
+from evidence.lab_agent import analyze_labs
+from evidence.med_agent import analyze_medications
+from evidence.symptom_agent import analyze_symptoms
 
-st.set_page_config(page_title="Medical Escalation System")
+st.title("Medical Escalation Support System")
 
-st.title(" Medical Risk Escalation Support")
-st.warning("This is NOT a diagnostic system")
+# --- UI inputs ---
+age = st.number_input("Age", 0, 120)
+sex = st.selectbox("Sex", ["male", "female"])
 
-st.header("Patient Input")
+meds = st.text_input("Medications (comma-separated)")
+labs = st.text_input("Labs (e.g. hb:9,wbc:8000)")
+symptoms = st.text_area("Symptoms")
 
-age = st.number_input("Age", min_value=0, max_value=120, step=1)
-sex = st.selectbox("Sex", ["male", "female", "other"])
+if st.button("Analyze"):
+    meds_list = [m.strip() for m in meds.split(",") if m.strip()]
+    labs_dict = {
+        k: float(v) for k, v in
+        (item.split(":") for item in labs.split(","))
+    }
 
-medications_text = st.text_input(
-    "Medications (comma-separated)",
-    placeholder="e.g. metformin, atorvastatin"
-)
+    # 🔥 MEMBER 2 CALLED HERE
+    lab_result = analyze_labs(labs_dict)
+    med_result = analyze_medications(meds_list)
+    symptom_result = analyze_symptoms(symptoms)
 
-labs_text = st.text_area(
-    "Labs (one per line: key:value)",
-    placeholder="hemoglobin: 11.2\nglucose: 180"
-)
-
-symptoms = st.text_area(
-    "Symptoms",
-    placeholder="Describe symptoms here"
-)
-
-if st.button("Submit"):
-    patient_input = build_patient_input(
-        age, sex, medications_text, labs_text, symptoms
-    )
-
-    st.subheader("📦 Structured Input")
-    st.json(patient_input)
-
-    st.subheader("🚨 Final Escalation")
-    st.info("Waiting for arbitration output")
-
-    st.subheader("🧠 Explanation")
-    st.write("Waiting for explainability module")
-
-
-
+    st.subheader("Evidence Results")
+    st.json({
+        "labs": lab_result,
+        "medications": med_result,
+        "symptoms": symptom_result
+    })
