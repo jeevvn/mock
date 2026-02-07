@@ -1,0 +1,22 @@
+ 🧩 Problem Statement
+
+Healthcare decision-making often involves interpreting fragmented information such as laboratory values, ongoing medications, and patient-reported symptoms. When these signals are considered in isolation or without sufficient context, they can lead to **over-escalation** (unnecessary panic, alerts, or resource use) or **under-escalation** (missed early warning signs of potential harm).
+
+Most existing medical AI systems attempt to **predict diagnoses or recommend treatments**, which introduces safety, ethical, and regulatory challenges. There is a lack of systems that focus specifically on **triage and escalation**—helping determine **how urgently** a case should be reviewed—while remaining transparent, explainable, and clinically safe.
+
+The problem is to design a system that can:
+
+* Integrate labs, medications, and symptoms,
+* Handle uncertainty and conflicting interpretations,
+* Avoid diagnostic or treatment claims,
+* And produce a **single, clear, and explainable escalation recommendation**.
+
+
+
+🎯 Objective
+
+To build a **safety-first, explainable medical decision-support system** that determines the **urgency of medical review (LOW / MEDIUM / HIGH)** by combining objective evidence with multiple risk-biased perspectives using adaptive, trust-weighted reasoning.
+
+
+
+
